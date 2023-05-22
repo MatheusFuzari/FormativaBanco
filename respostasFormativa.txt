@@ -1,0 +1,35 @@
+RESPOSTAS ETAPA2 HOGWARTS DOCKER
+a - ) select * from locais l join eventos e on l.id_local = e.local_fk;
+
+b - ) select * from locais l where l.id_local not in (select l.id_local from eventos e join locais l on e.local_fk = l.id_local);
+
+c - ) select * from eventos e where dateEnd < '2023-05-20 00:00:00';
+
+d - ) select distinct u.* from users u join user_evento ou where u.id_user = ou.id_user_fk;
+
+e - ) select * from eventos e join user_evento ou on e.id_evento = ou.id_evento_fk join users u on ou.id_user_fk = u.id_user WHERE e.dateInit >= now();
+
+f - ) select *,count(e.id_ue) from users u left join user_evento e on u.id_user = e.id_user_fk group by u.id_user;
+
+g - ) select max(d.qnt),min(d.qnt) from (select *, count(*) as qnt from eventos e join user_evento ue on e.id_evento=ue.id_evento_fk group by e.id_evento) d;
+
+h - ) select avg(numPartAtual) from locais l join eventos e on l.id_local=e.local_fk group by l.id_local;
+
+i - ) select * from users u join ocup_user ou on u.id_user=ou.id_user_fk join ocupacoes o on ou.id_ocup_fk = o.id_ocup join nivelacesso n on o.ocup_nivel_fk = n.id_nivel;
+
+
+j - ) select * from eventos where numPartMax != numPartAtual and dateCheckEnd > now();
+
+k - ) select * from eventos where numPartMax = numPartAtual and dateInit > now();
+
+l - ) select * from eventos where numPartMax != numPartAtual and dateCheckEnd > now();
+
+m - )select *,count(*) as qnt from users u join user_evento ue on u.id_user=ue.id_user_fk where u.dtCadastro between '2023-05-15' and '2023-05-20' group by u.id_user having count(*)>=2;
+
+ETAPA 2 - BASE DE DADOS DUMP IDESP
+
+a - ) select *, avg(nota_idesp_ef_iniciais),avg(nota_idesp_ef_finais),avg(nota_idesp_em) from escola group by id_municipio;
+
+b - ) select *, avg(nota_idesp_ef_iniciais),avg(nota_idesp_ef_finais),avg(nota_idesp_em) from escola group by id_municipio, ano;
+
+c - ) select *, AVG((nota_idesp_ef_finais+nota_idesp_ef_finais+nota_idesp_em)) as Média from escola group by id_municipio;
